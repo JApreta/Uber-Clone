@@ -11,8 +11,9 @@ import{onAuthStateChanged,signOut} from 'firebase/auth'
 import { auth, provider } from '../firebase'
 export default function Home() {
 
-    const [user, setUser] = new useState(null)
-   const router = useRouter()
+   const [user, setUser] = new useState(null)
+    const router = useRouter()
+    
     useEffect(() => {
         return onAuthStateChanged(auth, user => {
             if (user) {
@@ -26,7 +27,7 @@ export default function Home() {
                 router.push('/Login')
             }
         })
-    },[])
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Wrapper>
@@ -41,7 +42,7 @@ export default function Home() {
                 </Header>
                
                 <ActionsButtons>
-                    <Link href="/Search">
+                    <Link href="/Search" passHref>
                     <ActionButton>
                         <ActionButtonImg src='https://i.ibb.co/cyvcpfF/uberx.png'/> Ride
                     </ActionButton>
