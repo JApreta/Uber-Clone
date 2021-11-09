@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect,useState } from 'react'
+import { useEffect,useState , useRef} from 'react'
 import tw from 'tailwind-styled-components'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
@@ -10,7 +10,9 @@ export default function Confirm() {
     const [pickUpCoords, setPickUpCoords] = new useState([0,0])
     const [dropOffCoords, setDropOffCoords] = new useState([0,0])
     const router=useRouter()
-    const {pickup, dropoff}=router.query
+    const { pickup, dropoff } = router.query
+    const tempPickUpCoordinates = useRef()
+    const tempDropOffCoordinates = useRef()
 
     function getPickUpCoordinates(pickUpL) {
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pickUpL}.json?`+
@@ -38,11 +40,14 @@ export default function Confirm() {
                 })
     
     }
+
+    tempPickUpCoordinates.current = getPickUpCoordinates(pickup);
+    tempDropOffCoordinates.current = getDropOffCoordinates(dropoff);
     
      useEffect(() => {
-         getPickUpCoordinates(pickup);
-         getDropOffCoordinates(dropoff)
-    },[dropoff,pickup])// eslint-disable-line react-hooks/exhaustive-deps
+         tempPickUpCoordinates.current();
+         tempPickUpCoordinates.current();
+    },[dropoff,pickup])
 
 
     return (

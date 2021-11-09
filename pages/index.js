@@ -1,6 +1,4 @@
-import { useEffect,useState } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
+import { useEffect,useState ,useRef} from 'react'
 import Link from 'next/link'
 import tw from 'tailwind-styled-components'
 import Map from './Components/Map'
@@ -11,10 +9,11 @@ import{onAuthStateChanged,signOut} from 'firebase/auth'
 import { auth, provider } from '../firebase'
 export default function Home() {
 
-   const [user, setUser] = new useState(null)
+    const [user, setUser] = new useState(null)
     const router = useRouter()
+    const tempLoginLoader = useRef()
     
-    useEffect(() => {
+    function laodLogin() {
         return onAuthStateChanged(auth, user => {
             if (user) {
                 setUser({
@@ -27,7 +26,11 @@ export default function Home() {
                 router.push('/Login')
             }
         })
-    },[])// eslint-disable-line react-hooks/exhaustive-deps
+    }
+tempLoginLoader.current=laodLogin
+    useEffect(() => {
+        tempLoginLoader.current()
+    },[])
 
     return (
         <Wrapper>
