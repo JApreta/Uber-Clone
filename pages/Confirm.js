@@ -48,7 +48,7 @@ export default function Confirm() {
     return (
         <Wrapper >
             <ButtonContainer>
-                <Link href='/Search'>
+                <Link href='/Search' passHref>
                     <BackImg src='https://img.icons8.com/ios-filled/50/000000/left.png'/>
                 </Link>
             </ButtonContainer>
