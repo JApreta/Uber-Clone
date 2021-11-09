@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 import tw from 'tailwind-styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -8,13 +8,21 @@ import { auth, provider } from '../firebase'
 
 export default function Login() {
     const router = useRouter()
-    useEffect(() => {
-        onAuthStateChanged(auth, user => {//get user auth fromgoogle
+    const tempLogin= useRef()
+
+    const loginFunction=() => {
+          onAuthStateChanged(auth, user => {//get user auth fromgoogle
             if (user) {//if user exists
                 router.push('/')//redirect to homepage
             }
         })
-    },[])// eslint-disable-line react-hooks/exhaustive-deps
+    }
+    tempLogin.current=loginFunction
+    
+    useEffect(() => {
+        tempLogin.current()
+           
+    },[])
     
     return (
         <Wrapper>
