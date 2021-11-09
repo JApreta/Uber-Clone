@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import tw from 'tailwind-styled-components'
 import Link from 'next/link'
-import {carList} from '../data/carList'
+import {carList} from '../../data/carList'
 
 export function RideSelector(props) {
     const [rideDuration, setRideDuration] = new useState()
