@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,9 +6,27 @@ import tw from 'tailwind-styled-components'
 import Map from './Components/Map'
 import mapboxgl from '!mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoianVkaXRoLWFudG9uaW8iLCJhIjoiY2t2b2JxMmV2MWNnMDJ3dXBqMjN5Ym94dCJ9.AVbtctH3jq75PQw0NjJLaQ';
-
+import { useRouter } from 'next/router'
+import{onAuthStateChanged,signOut} from 'firebase/auth'
+import { auth, provider } from '../firebase'
 export default function Home() {
-  
+
+    const [user, setUser] = new useState(null)
+   const router = useRouter()
+    useEffect(() => {
+        return onAuthStateChanged(auth, user => {
+            if (user) {
+                setUser({
+                    name: user.displayName,
+                    userPhoto:user.photoURL
+                    
+                })
+            } else {
+                setUser(null)
+                router.push('/Login')
+            }
+        })
+    },[])
 
     return (
         <Wrapper>
@@ -17,8 +35,8 @@ export default function Home() {
                 <Header>
                     <UberLogo src='https://i.ibb.co/84stgjq/uber.png' />
                     <Profile>
-                        <Name>Preta</Name>
-                        <UserImg src='images/preta.jpeg'/>
+                        <Name>{user && user.name}</Name>
+                        <UserImg src={user && user.userPhoto} onClick={ ()=>signOut(auth)}/>
                     </Profile>
                 </Header>
                
