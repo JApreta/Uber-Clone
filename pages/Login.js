@@ -14,7 +14,7 @@ export default function Login() {
                 router.push('/')//redirect to homepage
             }
         })
-    },[])
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
     
     return (
         <Wrapper>

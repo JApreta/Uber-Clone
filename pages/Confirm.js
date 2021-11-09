@@ -42,7 +42,7 @@ export default function Confirm() {
      useEffect(() => {
          getPickUpCoordinates(pickup);
          getDropOffCoordinates(dropoff)
-    },[dropoff,pickup])
+    },[dropoff,pickup])// eslint-disable-line react-hooks/exhaustive-deps
 
 
     return (

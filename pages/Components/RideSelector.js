@@ -22,7 +22,7 @@ export function RideSelector(props) {
            )
            }
           
-    }, [props.pickUpCoordinates, props.dropOffCoordinates])
+    }, [props.pickUpCoordinates, props.dropOffCoordinates])// eslint-disable-line react-hooks/exhaustive-deps
     
  
     return (
