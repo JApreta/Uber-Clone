@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import Map from "./Components/Map";
-import { RideSelector } from "./Components/RideSelector";
+import RideSelector from "./Components/RideSelector";
 export default function Confirm() {
 
     const [pickUpCoords, setPickUpCoords] = new useState([0,0])
